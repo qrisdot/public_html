@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Washap</title>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      body {
+        background-image: url(https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: repeat;
+      }
+      .container {
+        background-color: white;
+        margin-top: 100px;
+        display: flex;
+        align-items: center;
+      }
+      .my-light-green {
+        background-color: #25d366;
+      }
+      .my-light-green:hover {
+        background-color: #1cf06a;
+      }
+      .input-field {
+        max-width: 540px;
+        margin: 20px 0 100px 0;
+      }
+      .input-field label {
+        color: silver;
+      }
+      .my-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .my-button .fa {
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <nav>
+        <div class="nav-wrapper my-light-green">
+          <a href="#" class="brand-logo center">Send2WhatsApp</a>
+        </div>
+      </nav>
+
+      <div class="container">
+        <div class="row">
+          <div class="input-field col s12">
+            <input
+              id="number"
+              type="text"
+              v-model="number"
+              onkeydown="return ( event.ctrlKey || event.altKey 
+                    || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false) 
+                    || (95<event.keyCode && event.keyCode<106)
+                    || (event.keyCode==8) || (event.keyCode==9) 
+                    || (event.keyCode>34 && event.keyCode<40) 
+                    || (event.keyCode==46) )"
+              class="validate"
+              @keyup="enterTrigger(event)"
+            />
+            <label for="number">Masukkan Nomor WhatsApp</label>
+            <a
+              class="waves-effect waves-light btn my-light-green my-button"
+              @click="send"
+            >
+              <i class="fa fa-whatsapp fa-lg"></i>
+              kirim pesan
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          number: '',
+        },
+        methods: {
+          send() {
+            if (this.number.length < 10) {
+              return alert('Format nomor salah!')
+            }
+            const new_number = '+62' + this.number
+            window.location.href =
+              'https://api.whatsapp.com/send?phone=' + new_number
+          },
+          enterTrigger(event) {
+            if (event.keyCode === 13) {
+              event.preventDefault()
+              this.send()
+            }
+          },
+        },
+      })
+    </script>
+  </body>
+</html>
