@@ -1,0 +1,5 @@
+body, html { height:100%; width:100%; padding-bottom: 1em; margin:0; }
+.container-fluid { height:100%; width:100%; display: flex; flex-direction:column; }
+.container-fluid > .count-label { text-align: center;}
+.container-fluid > .fill-remaining { flex-grow:1; overflow:auto; }
+.container-fluid #textarea {border: none; box-shadow: none;}
